@@ -7,6 +7,8 @@ work on :
 Run powershell.exe as admin
 then do 
 ```Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser```
+![image](https://github.com/TukangM/file_to_csv/assets/91467886/88046413-5ddc-4eaa-b4e2-1bac31661af1)
+then yes [y] / yes to all [a]
 
 # this is a list all files into .csv (still raw)
 tutorial later
