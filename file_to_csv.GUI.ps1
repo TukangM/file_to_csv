@@ -1,7 +1,9 @@
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
+Install-Module -Name ImportExcel
+Import-Module -Name ImportExcel
 
-# Function to execute the file-to-CSV conversion
+# Function to execute the file-to-CSV conversion and convert to XLSX
 function ConvertToCSV {
     $inputdir = $textboxInputDir.Text
     $outputfile = $textboxOutputFile.Text
@@ -14,9 +16,14 @@ function ConvertToCSV {
 
     $consoleLog.AppendText("Please wait..." + [Environment]::NewLine)
 
-    Get-ChildItem -Path $inputdir -Filter $filetype -Recurse | Export-Csv -Path $outputfile -Encoding ASCII -NoTypeInformation
+    Get-ChildItem -Path $inputdir $filetype -Recurse | Export-Csv -Path $outputfile -Encoding ASCII -NoTypeInformation
 
-    $consoleLog.AppendText("Done!" + [Environment]::NewLine)
+    $consoleLog.AppendText("Done! Making .xlsx version" + [Environment]::NewLine)
+
+    $outputfileXLSX = $outputfile -replace '.csv$', '.xlsx'
+    $data = Import-Csv -Path $outputfile
+    $data | Export-Excel -Path $outputfileXLSX 
+    $consoleLog.AppendText("Done make .xlsx!" + [Environment]::NewLine)
 }
 
 # Function to open the folder browse dialog
@@ -41,7 +48,7 @@ function BrowseSaveFile {
 }
 
 $form = New-Object Windows.Forms.Form
-$form.Text = "File to CSV Converter"
+$form.Text = "File to CSV and XLSX Converter"
 $form.Size = New-Object Drawing.Size(500, 300)
 $form.StartPosition = "CenterScreen"
 $form.FormBorderStyle = "FixedDialog"
