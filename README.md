@@ -22,4 +22,8 @@ tutorial later
 
 # todo list
  - [x] GUI version with .ps1 still on going
+ - [x] abandoned ps1 support
+ - [x] reverse enginering powershell > python3 with chatgpt
+ - [ ] working with python3 code with chatgpt
+ - [x] still on progress
        
