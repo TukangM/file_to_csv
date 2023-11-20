@@ -4,7 +4,8 @@ work on :
  - Windows Server 2019
  - Windows 10
  - Windows 11
-# .\file_to_csv.GUI.ps1
+# python version still on going
+# .\file_to_csv.GUI.ps1 (deprecated)
 Run powershell.exe as admin
 then do 
 ```Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser```
