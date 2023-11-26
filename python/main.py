@@ -25,23 +25,26 @@ def ConvertToCSV():
     outputfile = textboxOutputFile.get()
     filetype = textboxFileType.get()
 
-    # Jika checkbox "Include Subdirectories" diaktifkan, tambahkan '**/' ke awal file type
-    if checkboxSubdirectory.get():
+# Jika checkbox "Include Subdirectories" diaktifkan, tambahkan '**/' ke awal file type
+if checkboxSubdirectory.get():
+    if filetype.startswith('**/'):
+        filetype = filetype[3:]
+    else:
         filetype = '**/' + filetype
 
-    if not os.path.isdir(inputdir):
-        consoleLog.insert(END, "Input directory not found!\n")
-        return
+if not os.path.isdir(inputdir):
+    consoleLog.insert(END, "Input directory not found!\n")
+    return
 
-    consoleLog.insert(END, "Please wait...\n")
+consoleLog.insert(END, "Please wait...\n")
 
-    files = glob.glob(os.path.join(inputdir, filetype), recursive=checkboxSubdirectory.get())
+files = glob.glob(os.path.join(inputdir, filetype), recursive=checkboxSubdirectory.get())
 
-    if not files:
-        consoleLog.insert(END, "No files found!\n")
-        return
+if not files:
+    consoleLog.insert(END, "No files found!\n")
+    return
 
-    df = pd.DataFrame(files, columns=['File Path'])
+df = pd.DataFrame(files, columns=['File Path'])
 
     # Jika checkbox "Add Columns" diaktifkan, tambahkan kolom Name, Type/Extension, dan Size
     df['Name'] = df['File Path'].apply(os.path.basename)
